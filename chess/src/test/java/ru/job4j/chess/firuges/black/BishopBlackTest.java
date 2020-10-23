@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges.black;
 
+import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import junit.framework.TestCase;
 
@@ -19,17 +20,16 @@ public class BishopBlackTest extends TestCase {
         assertThat(bishop.copy(Cell.E6).position(), is(Cell.E6));
     }
 
-    public void testWay() {
-        BishopBlack bishop = new BishopBlack(Cell.C1);
-        assertThat(bishop.way(Cell.G5), is(new Cell[]{Cell.D2, Cell.E3, Cell.F4, Cell.G5}));
+    public void testWay() throws ImpossibleMoveException {
+            BishopBlack bishop = new BishopBlack(Cell.C1);
+            assertThat(bishop.way(Cell.G5), is(new Cell[]{Cell.D2, Cell.E3, Cell.F4, Cell.G5}));
     }
 
     public void testDiagonal() {
         try {
             BishopBlack bishop = new BishopBlack(Cell.C8);
             bishop.way(Cell.C5);
-        } catch (IllegalStateException ex) {
-            assertThat(ex.getMessage(), is("Could not move by diagonal from C8 to C5"));
+        } catch (ImpossibleMoveException ex) {
         }
     }
 }
